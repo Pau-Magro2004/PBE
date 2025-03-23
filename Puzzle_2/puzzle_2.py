@@ -5,7 +5,7 @@ import lcddriver
 
 class LCDApp(Gtk.Window):
     def __init__(self):
-        super().__init__(title="LCD Display")
+        super().__init__(title="Pantalla LCD")
         self.set_default_size(300, 200)
 
         # Creo un objeto lcd.
