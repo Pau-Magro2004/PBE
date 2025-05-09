@@ -25,6 +25,6 @@ body { /*BODY = TODO EL CONTENIDO QUE ESTÁ DENTRO DE BODY EN EL CÓDIGO HTML DE
   object-fit: cover; /* LA IMAGEN NO SE RECORTA*/
 }
 
-#user-id,#user-pass{
+#user-id,#user-pass{ /*SELECIONAMOS EL RECTANGULO DEL USERNAME Y PASSWORD*/
   padding: 10px; /*CREA EL TAMAÑAO DEL RECTANGULO*/
 }
