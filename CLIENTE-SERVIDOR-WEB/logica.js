@@ -1,12 +1,16 @@
-function handleLoginClick() {
+function handleLoginClick(callback) {
   const url = buildLoginUrl(getCredentials());
-  sendRequest(url,handleServerResponse);
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onload = function() { //Cuando se detecte respuesta del servidor, se ejecutara la funcíon pasando el propio objeto xhr por parámetro
+     handleServerResponse(this,callback);
+  };   
+  xhr.send();
 }
-function handleServerResponse(xhr){
+function handleServerResponse(xhr,callback){
    if(xhr.status === 200){
       const response = JSON.parse(xhr.responseText);  //Parseamos la respuesta .json del server
-      updateLoggedUser(response.data); //Esto te accede directamente al nombre
-      
+      callback(response.data);                        //Esto te accede directamente al nombre      
    }
    else{
       
@@ -17,7 +21,7 @@ function sendRequest(url,callback){
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onload = function() { //Cuando se detecte respuesta del servidor, se ejecutara la función de callback pasando el propio objeto xhr por parámetro
-    callback(this);
+     handleServerResponse(this,callback);
   };   
   xhr.send();
 }
@@ -38,12 +42,17 @@ function buildLoginUrl({ id, pass }) {
 document
   .getElementById('login-button')
   .addEventListener('click', handleLoginClick);
+document
+  .getElementById('query-button')
+  .addEventListener('click',handleQueryClick);
+function updateLoggedUser(username){
+  
+      document.getElementById('login-section').classList.add('hidden');        //Escondemos la página de log in
+      const query_page = document.getElementById('query-section');             //Obtenemos una referencia a la pagina de querys
+      query_page.classList.remove('hidden');                                   //Hacemos visible la página de querys
 
-function updateLoggedUser(){
-   // Ocultar login y mostrar dashboard
-      document.getElementById('login-section').classList.add('hidden');
-      const dash = document.getElementById('dashboard-section');
-      dash.classList.remove('hidden');
+      const label = document.getElementById('welcome-label');
+      label.textContent= `Welcome ${username}`!;                              //Ponemos el texto en el label del HTML  
 }
 
 
