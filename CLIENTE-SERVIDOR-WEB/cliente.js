@@ -3,6 +3,7 @@ function handleLoginClick() {
   const url = buildLoginUrl(creds);
   performRequest(url,updateLoggedUser);
 }
+
 function handleQueryClick() {
   const query = document.getElementById('user-query').value;
   const url = buildQueryUrl(query);
