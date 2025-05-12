@@ -26,7 +26,7 @@ function updateLoggedUser(username){
      }
 }
 function updateSentQuery(data){
-
+//completar
 }
 
 document
