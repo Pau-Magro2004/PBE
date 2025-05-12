@@ -6,8 +6,9 @@ function handleLoginClick() {
   com.sendRequest();
 }
 function handleQueryClick() {
-  const url =
-  const com = ServerCommunication(url,updateSentQuery);
+  const query = document.getElementById('user-query').value;
+  const url = buildQueryUrl(query);
+  const com = new ServerCommunication(url,updateSentQuery);
   com.sendRequest();
 }
 
@@ -20,10 +21,22 @@ function getCredentials() {
 
 // Construye la URL de login
 function buildLoginUrl({ id, pass }) {
-  const base   = 'http://localhost:8000/login.php/students?';
+  const base   = 'http://localhost:8000/Servidor/login.php/students?';
   const params = `id=${encodeURIComponent(id)}&pass=${encodeURIComponent(pass)}`;
   return base + params;
 }
+function buildQueryUrl(query) {
+  const base = 'http://localhost:8000/Servidor/querys.php/${query}?';
+  let constraints;
+  switch (query) {
+    case "marks": constraints = ""; break;
+    case "timetables": constraints = "day=now&hour[gt]=now"; break;
+    case "tasks": constraints = "date[gte]=now"; break;
+    default: constraints = null; // Invalid table
+   }
+return base + constraints;
+}
+  
 
 class ServerCommunication {
   constructor(url,callback){
@@ -32,20 +45,25 @@ class ServerCommunication {
     this.xhr = null;    
   }
   sendRequest(){
-     xhr = new XMLHttpRequest();
-     xhr.open('GET', this.url, true);
-     xhr.onload =  () => {
+     this.xhr = new XMLHttpRequest();
+     this.xhr.open('GET', this.url, true);
+     this.xhr.onload =  () => {
       this.handleServerResponse();
     };
-     xhr.send();    
+     this.xhr.send();    
   }
   handleServerResponse(){
-   if(this.xhr.status === 200){
-      const response = JSON.parse(this.xhr.responseText);  //Parseamos la respuesta .json del server
-      this.callback(response.data);                        //Esto te accede directamente al nombre      
+   const xhr = this.xhr;
+   if(xhr.status === 200){
+     try{
+       const response = JSON.parse(xhr.responseText);       //Parseamos la respuesta .json del server
+       this.callback(response.data);                         
+     }catch(e){
+       //ERROR AL PROCESAR EL JSON
+     }
    }
    else{
-      
+      //ERROR DEL SERVIDOR
     }
   }
 }
