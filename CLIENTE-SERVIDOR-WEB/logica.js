@@ -20,6 +20,7 @@ function buildLoginUrl({ id, pass }) {
   const params = `id=${encodeURIComponent(id)}&pass=${encodeURIComponent(pass)}`;
   return base + params;
 }
+
 class serverCommunication {
   constructor(url,callback){
     this.url = url;
@@ -41,24 +42,26 @@ class serverCommunication {
    }
    else{
       
-   }
- }
+    }
+  }
 }
-
-document
-  .getElementById('login-button')
-  .addEventListener('click', handleLoginClick);
-document
-  .getElementById('query-button')
-  .addEventListener('click',handleQueryClick);
-function updateLoggedUser(username){
-  
+function updateLoggedUser(username){  
       document.getElementById('login-section').classList.add('hidden');        //Escondemos la página de log in
       const query_page = document.getElementById('query-section');             //Obtenemos una referencia a la pagina de querys
       query_page.classList.remove('hidden');                                   //Hacemos visible la página de querys
       const label = document.getElementById('welcome-label');
       label.textContent= `Welcome ${username}`!;                              //Ponemos el texto en el label del HTML  
 }
+function updateSentQuery(data){
+
+}
+
+document
+  .getElementById('login-button')
+  .addEventListener('click', handleLoginClick);        //Estas lineas lo que hacen es como el connect de python, hacer que se ejecuten esas funciones cuando se clicke en sus respectivos botones
+document
+  .getElementById('query-button')
+  .addEventListener('click',handleQueryClick);
 
 
   
