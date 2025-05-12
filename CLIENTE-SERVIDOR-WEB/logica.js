@@ -1,10 +1,14 @@
 function handleLoginClick() {
-  const url =  buildLoginUrl(getCredentials);
-  const com = serverCommunication(url,updateLoggedUser);
+  const creds = getCredentials();
+  const url = buildLoginUrl(creds);
+
+  const com = new ServerCommunication(url, updateLoggedUser);
+  com.sendRequest();
 }
 function handleQueryClick() {
   const url =
-  const com = serverCommunication(url,updateSentQuery);
+  const com = ServerCommunication(url,updateSentQuery);
+  com.sendRequest();
 }
 
 // Obtiene las credenciales desde el formulario
@@ -21,7 +25,7 @@ function buildLoginUrl({ id, pass }) {
   return base + params;
 }
 
-class serverCommunication {
+class ServerCommunication {
   constructor(url,callback){
     this.url = url;
     this.callback = callback;
