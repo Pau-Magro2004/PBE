@@ -11,6 +11,7 @@ function handleQueryClick() {
 }
 
 function updateLoggedUser(data){  
+     username = data.name;
      if (username === null){ //Si no coincide con nada en la base de datos
         const error_login = document.getElementById('login-message')
         error_login.textContent = 'Usuario o contraseña incorrectos';
