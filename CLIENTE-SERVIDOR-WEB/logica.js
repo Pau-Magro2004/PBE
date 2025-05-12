@@ -1,11 +1,10 @@
-function handleLoginClick(callback) {
-  const url = buildLoginUrl(getCredentials());
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.onload = function() { //Cuando se detecte respuesta del servidor, se ejecutara la funcíon pasando el propio objeto xhr por parámetro
-     handleServerResponse(this,callback);
-  };   
-  xhr.send();
+function handleLoginClick() {
+  const url =  buildLoginUrl(getCredentials);
+  const com = serverCommunication(url,updateLoggedUser);
+}
+function handleQueryClick() {
+  const url =
+  const com = serverCommunication(url,updateSentQuery);
 }
 //Esta función es la que ha de tener el callback, es decir, tanto para las querys como para logearte ejecutarás esta función con la diferencia que la función de callback será una u otra
 function handleServerResponse(xhr,callback){
@@ -15,6 +14,7 @@ function handleServerResponse(xhr,callback){
    }
    else{
       
+  }
 }
 
 //Envia la peticion al servidor y luego cuando detecta respuesta del servidor, ejecuta la función de callback
@@ -55,6 +55,30 @@ function updateLoggedUser(username){
       const label = document.getElementById('welcome-label');
       label.textContent= `Welcome ${username}`!;                              //Ponemos el texto en el label del HTML  
 }
+
+class serverCommunication {
+  constructor(url,callback){
+    this.url = url;
+    this.callback = callback;
+    this.xhr = new XMLHttpRequest();
+  }
+  sendRequest(){
+     xhr.open('GET', this.url, true);
+     xhr.onload = function() { //Cuando se detecte respuesta del servidor, se ejecutara la funcíon pasando el propio objeto xhr por parámetro
+     handleServerResponse(this.xhr,callback);
+     };   
+     xhr.send();    
+  }
+  handleServerResponse(xhr,callback){
+   if(xhr.status === 200){
+      const response = JSON.parse(xhr.responseText);  //Parseamos la respuesta .json del server
+      callback(response.data);                        //Esto te accede directamente al nombre      
+   }
+   else{
+      
+  }
+}
+  
 
 
   
