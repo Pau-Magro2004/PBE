@@ -28,3 +28,7 @@ body { /*BODY = TODO EL CONTENIDO QUE ESTÁ DENTRO DE BODY EN EL CÓDIGO HTML DE
 #user-id,#user-pass{ /*SELECIONAMOS EL RECTANGULO DEL USERNAME Y PASSWORD*/
   padding: 10px; /*CREA EL TAMAÑAO DEL RECTANGULO*/
 }
+
+.hidden{
+  display: none;
+}
