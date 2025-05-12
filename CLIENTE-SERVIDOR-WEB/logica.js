@@ -1,15 +1,16 @@
 function handleLoginClick() {
   const creds = getCredentials();
   const url = buildLoginUrl(creds);
-
-  const com = new ServerCommunication(url, updateLoggedUser);
-  com.sendRequest();
+  performRequest(url,updateLoggedUser);
 }
 function handleQueryClick() {
   const query = document.getElementById('user-query').value;
   const url = buildQueryUrl(query);
-  const com = new ServerCommunication(url,updateSentQuery);
-  com.sendRequest();
+  performRequest(url,updateSentQuery);
+}
+function performRequest(url,callback){
+   const com = new ServerCommunication(url,callback);
+   com.sendRequest();
 }
 
 // Obtiene las credenciales desde el formulario
@@ -40,39 +41,53 @@ return base + constraints;
 
 class ServerCommunication {
   constructor(url,callback){
-    this.url = url;
-    this.callback = callback;
-    this.xhr = null;    
+     this.url = url;
+     this.callback = callback;
+     this.xhr = null;    
   }
   sendRequest(){
      this.xhr = new XMLHttpRequest();
      this.xhr.open('GET', this.url, true);
      this.xhr.onload =  () => {
       this.handleServerResponse();
-    };
+     };
+     this.xhr.onerror = () => {
+      console.error('Error de conexión');
+     };
      this.xhr.send();    
   }
   handleServerResponse(){
-   const xhr = this.xhr;
-   if(xhr.status === 200){
-     try{
-       const response = JSON.parse(xhr.responseText);       //Parseamos la respuesta .json del server
-       this.callback(response.data);                         
-     }catch(e){
-       //ERROR AL PROCESAR EL JSON
+    const xhr = this.xhr;
+    if(xhr.status === 200){
+      try{
+        const response = JSON.parse(xhr.responseText);       //Parseamos la respuesta .json del server
+        if (response.status === 'id_matched'){
+          this.callback(response.data);}
+        else{
+          this.callback(null);}
+      }catch(e){
+        console.error('Error al procesar JSON:', e);
+      }
+    }
+    else{
+       console.error(`Error del servidor: ${xhr.status}`);
      }
    }
-   else{
-      //ERROR DEL SERVIDOR
-    }
-  }
 }
 function updateLoggedUser(username){  
-      document.getElementById('login-section').classList.add('hidden');        //Escondemos la página de log in
-      const query_page = document.getElementById('query-section');             //Obtenemos una referencia a la pagina de querys
-      query_page.classList.remove('hidden');                                   //Hacemos visible la página de querys
-      const label = document.getElementById('welcome-label');
-      label.textContent= `Welcome ${username}`!;                              //Ponemos el texto en el label del HTML  
+     if (username === null){ //Si no coincide con nada en la base de datos
+        const error_login = document.getElementById('login-message')
+        error_login.textContent = 'Usuario o contraseña incorrectos';
+        error_login.classList.remove('hidden');   
+        error_login.classList.add('error'); //Para el css            
+     }
+     else{
+        document.getElementById('login-section').classList.add('hidden');        //Escondemos la página de log in
+        const query_page = document.getElementById('query-section');             //Obtenemos una referencia a la pagina de querys
+        query_page.classList.remove('hidden');                                   //Hacemos visible la página de querys
+        const label = document.getElementById('welcome-label');
+        label.textContent= `Welcome ${username}`!;                              //Ponemos el texto en el label del HTML  
+     }
 }
 function updateSentQuery(data){
 
