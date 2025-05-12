@@ -20,10 +20,7 @@ class ServerCommunication {
     if(xhr.status === 200){
       try{
         const response = JSON.parse(xhr.responseText);       //Parseamos la respuesta .json del server
-        if (response.status === 'id_matched'){   //No general, hay que cambiarlo
-          this.callback(response.data);}
-        else{
-          this.callback(null);}
+        this.callback(response);     
       }catch(e){
         console.error('Error al procesar JSON:', e);
       }
