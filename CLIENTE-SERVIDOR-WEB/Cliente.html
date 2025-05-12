@@ -1,27 +1,28 @@
-<!DOCTYPE html>             
-<html>           
-<head> 
-        <title>UPC-ATENEA-PBE</title>
-        <link rel="stylesheet" href="estilo.css" />
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>UPC-ATENEA-PBE</title>
+  <link rel="stylesheet" href="estilo.css" />
 </head>
-<body>  
+<body>
   <div id="login-section">
-     <form id="login-form">   
-       <img src="FOTO_AFRODITA.jpg" alt="FOTO_AFRODITA" id="imagen" />
-       <input type="text" id="user-id" placeholder="Username" required>
-       <input type="password" id="user-pass" placeholder="Password" required>
-       <button id = "login-button" type="button">Log In</button>
-     </form>
+    <form id="login-form">
+      <img src="FOTO_AFRODITA.jpg" alt="FOTO_AFRODITA" id="imagen" />
+      <input type="text" id="user-id" placeholder="Username" required>
+      <input type="password" id="user-pass" placeholder="Password" required>
+      <button id="login-button" type="button">Log In</button>
+    </form>
   </div>
-        
+
   <div id="query-section" class="hidden">
-     <h2 id="welcome-label"></h2>
-     <form id="query-form">
-       <input type="text" id="user-query" placeholder="Please, write your query" required>
-       <button id="query-button" type="button">Submit Query</button>
-     </form>
+    <h2 id="welcome-label"></h2>
+    <form id="query-form">
+      <input type="text" id="user-query" placeholder="Please, write your query" required>
+      <button id="query-button" type="button">Submit Query</button>
+    </form>
   </div>
 
   <script src="logic.js"></script>
-</body>                     
-</html>  
+</body>
+</html>
