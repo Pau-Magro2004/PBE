@@ -7,6 +7,7 @@ function handleLoginClick(callback) {
   };   
   xhr.send();
 }
+//Esta función es la que ha de tener el callback, es decir, tanto para las querys como para logearte ejecutarás esta función con la diferencia que la función de callback será una u otra
 function handleServerResponse(xhr,callback){
    if(xhr.status === 200){
       const response = JSON.parse(xhr.responseText);  //Parseamos la respuesta .json del server
