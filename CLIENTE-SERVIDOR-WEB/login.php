@@ -11,10 +11,13 @@ include("connect.php");   //Abrimos la conexión con la BD
 include("clases.php");
 
 $login = new LogIn($connexion,$password,$username);
-$_SESSION['user_id'] = $user_id;
+
+$response = $login->getUsername();
+
+$_SESSION['user_id'] = $response['data']['uid']; //Guardamos la UID asociada con la cual identificaremos al usuario
 $_SESSION['connexion'] = true;
 $_SESSION['last_activity'] = time();
-echo($login->getUsername());
+echo (json_encode($response));
 $connexion->close();
 ?>
 
