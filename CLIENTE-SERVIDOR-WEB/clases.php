@@ -170,22 +170,25 @@ class queryManager {
 class LogIn {
     public $connexion;
     public $id;
+    public $password;
+    public $username;
     
-    public function __construct($conn,$id) {
+    public function __construct($conn,$password,$username) {
         $this->connexion = $conn;
-        $this->id = $id;
+        $this->password = $password;
+        $this->username = $username;
     }
     
     public function getUsername() {
         
-        $query = "SELECT name FROM students WHERE uid = '{$this->id}'";
+        $query = "SELECT name,uid FROM students WHERE password = '{$this->password}' AND username = '{this->username}'";
         $result = $this->connexion->query($query);
         
         if ($result->num_rows == 1) {
-            $user_name = $result->fetch_assoc();
+            $result = $result->fetch_assoc();
             $response = [
                 'status' => 'id_matched',
-                'data' => $user_name['name']
+                'data' => $result
             ];
            
         } else {
@@ -196,7 +199,7 @@ class LogIn {
             ];                                
         }
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($response);
+        return $response;
     }
 }
 
