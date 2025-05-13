@@ -181,7 +181,7 @@ class LogIn {
     
     public function getUsername() {
         
-        $query = "SELECT name,uid FROM students WHERE password = '{$this->password}' AND username = '{this->username}'";
+        $query = "SELECT name,uid FROM students WHERE password = '{$this->password}' AND username = '{$this->username}'";
         $result = $this->connexion->query($query);
         
         if ($result->num_rows == 1) {
