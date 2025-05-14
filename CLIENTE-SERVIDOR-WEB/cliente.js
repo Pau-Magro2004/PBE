@@ -38,8 +38,11 @@ function updateSentQuery(response){
      const thead = document.createElement('thead');   //thead es una etiqueta HTML para agrupar el encabezado de una tabla, osea para meter dentro los nombres de las columnas
      const headerRow = document.createElement('tr');  //Dentro de la etiqueta de 'tr' se ponen los nombres de las columnas, (date, mark, room ... )
 
-     
-     Object.keys(data[0]).forEach(key => {  //Object.keys() te devuelve un array con todas las claves (nombres de las columnas). Luego con el .forEach recorremos todas las keys y las introducimos en las etiquetas th las cuales luego se introducen en la etiqueta tr
+     const excluded_keys = ['id','uid','day_int'];
+     Object.keys(data[0]).forEach(key => {               //Object.keys() te devuelve un array con todas las claves (nombres de las columnas). Luego con el .forEach recorremos todas las keys y las introducimos en las etiquetas th las cuales luego se introducen en la etiqueta tr
+        if(excluded_keys.includes(key)){
+             return
+        }
         const column_name = document.createElement('th');
         column_name.textContent = key; //Ponemos que en la celda tenga el nombre de la columa
         headerRow.appendChild(column_name); //Introducimos la celda th en la etiqueta tr
