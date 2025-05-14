@@ -1,17 +1,16 @@
 function handleLoginClick() {
-  const creds = getCredentials();
-  const url = buildLoginUrl(creds);
-  performRequest(url,updateLoggedUser);
+     const creds = getCredentials();
+     const url = buildLoginUrl(creds);
+     performRequest(url,updateLoggedUser);
 }
 
 function handleQueryClick() {
-  const query = document.getElementById('user-query').value;
-  const url = buildQueryUrl(query);
-  performRequest(url,updateSentQuery);
+     const query = document.getElementById('user-query').value;
+     const url = buildQueryUrl(query);
+     performRequest(url,updateSentQuery);
 }
 
-function updateLoggedUser(response){  
-     
+function updateLoggedUser(response){       
      if (response.status === 'id_not_matched'){ //Si no coincide con nada en la base de datos
         const error_login = document.getElementById('login-message')
         error_login.textContent = 'Usuario o contraseña incorrectos';
@@ -26,8 +25,47 @@ function updateLoggedUser(response){
         label.textContent= `Welcome ${response.data.name}`!;                              //Ponemos el texto en el label del HTML  
      }
 }
-function updateSentQuery(data){
-//completar
+function updateSentQuery(response){
+   if (response.status === 'valid_query'){
+     const data = response.data;
+     
+     const container = document.getElementById('query-results');   //Contenedor donde irá la tabla
+     container.innerHTML = ''; //Esto borrara la tabla anterior
+     
+     const table = document.createElement('table');                //Añadimos aquí una tabla
+     table.classList.add('results-table');
+
+     const thead = document.createElement('thead');   //thead es una etiqueta HTML para agrupar el encabezado de una tabla, osea para meter dentro los nombres de las columnas
+     const headerRow = document.createElement('tr');  //Dentro de la etiqueta de 'tr' se ponen los nombres de las columnas, (date, mark, room ... )
+
+     
+     Object.keys(data[0]).forEach(key => {  //Object.keys() te devuelve un array con todas las claves (nombres de las columnas). Luego con el .forEach recorremos todas las keys y las introducimos en las etiquetas th las cuales luego se introducen en la etiqueta tr
+        const column_name = document.createElement('th');
+        column_name.textContent = key; //Ponemos que en la celda tenga el nombre de la columa
+        headerRow.appendChild(column_name); //Introducimos la celda th en la etiqueta tr
+     }
+     thead.appendChild(headerRow); //Añadimos la fila de los nombres de las columnas en el thead
+     table.appendChild(thead);     //Añadimos ahora el encabezado de la tabla en la etiqueta de table
+
+     const table_body = document.createElement('tbody'); //Creamos la etiqueta que contendrá las filas de la tabla , osea la información
+     data.forEach(fila_vector => { //Hacemos un for-each por las filas de info
+       const fila = document.createElements('tr'); //Este es el contenedor donde irá una fila
+       Object.values(fila_vector).forEach(value => { //Hacemos un for each de cada elemento particular de una fila concreta
+          const celda = document.createElement('td'); //Creamos una celda para poner un dato
+          celda.textContent = value;
+          fila.appendChild(celda); //Introducimos la celda del dato en el contenedor de la fila
+       });
+       table_body.appendChild(fila); //Introducimos la fila en la tabla que contendrá TODAS las filas
+     });
+     table.appendChild(table_body);  //Introducimos a la tabla todas las filas
+     container.appendChild(table)  //Finalmente, añadimos la tabla en el contenedor
+   }  
+   else{
+     const error_query = getElementById('query-message');
+     error_query.textContent = 'Query invalida';
+     error_query.classList.remove('hidden');   
+     error_query.classList.add('error');      
+   }
 }
 
 document
