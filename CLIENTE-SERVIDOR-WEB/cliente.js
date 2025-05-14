@@ -83,6 +83,7 @@ function updateUnloggedUser(response){
      container.innerHTML = ''; //Esborrem la taula anterior
      document.getElementById('login-section').classList.remove('hidden'); //Mostramos de nuevo la pagina de log in
      document.getElementById('query-section').classList.add('hidden'); //Escondemos la pagina de querys
+     console.log(response);
 }
      
 document
@@ -91,6 +92,9 @@ document
 document
   .getElementById('query-button')
   .addEventListener('click',handleQueryClick);
+document
+  .getElementsById('logout-button')
+  .addEventListener('click',handleLogoutClick);
 
 
   
