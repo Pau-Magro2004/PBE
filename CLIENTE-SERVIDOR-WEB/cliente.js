@@ -53,7 +53,10 @@ function updateSentQuery(response){
      const table_body = document.createElement('tbody'); //Creamos la etiqueta que contendrá las filas de la tabla , osea la información
      data.forEach(fila_vector => { //Hacemos un for-each por las filas de info
        const fila = document.createElement('tr'); //Este es el contenedor donde irá una fila
-       Object.values(fila_vector).forEach(value => { //Hacemos un for each de cada elemento particular de una fila concreta
+       Object.entries(fila_vector).forEach(([key,value]) => { //Hacemos un for each de cada elemento particular de una fila concreta. Object.entries te devuelve la pareja key (titulo columna. ex : subject) value(valor. ex : PBE
+          if(excluded_keys.includes(key)){
+             return;
+          }
           const celda = document.createElement('td'); //Creamos una celda para poner un dato
           celda.textContent = value;
           fila.appendChild(celda); //Introducimos la celda del dato en el contenedor de la fila
