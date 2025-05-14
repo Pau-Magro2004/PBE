@@ -10,6 +10,11 @@ function handleQueryClick() {
      performRequest(url,updateSentQuery);
 }
 
+function handleLogoutClick(){
+     const url = "http:\\localhost:8000/Servidor/logout.php";
+     performRequest(url,updateUnloggedUser);
+}
+
 function updateLoggedUser(response){       
      if (response.status === 'id_not_matched'){ //Si no coincide con nada en la base de datos
         const error_login = document.getElementById('login-message')
@@ -73,7 +78,13 @@ function updateSentQuery(response){
      error_query.classList.add('error');      
    }
 }
-
+function updateUnloggedUser(response){
+     const container = document.getElementById('query-results');   
+     container.innerHTML = ''; //Esborrem la taula anterior
+     document.getElementById('login-section').classList.remove('hidden'); //Mostramos de nuevo la pagina de log in
+     document.getElementById('query-section').classList.add('hidden'); //Escondemos la pagina de querys
+}
+     
 document
   .getElementById('login-button')
   .addEventListener('click', handleLoginClick);        //Estas lineas lo que hacen es como el connect de python, hacer que se ejecuten esas funciones cuando se clicke en sus respectivos botones
