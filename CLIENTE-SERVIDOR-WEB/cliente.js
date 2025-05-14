@@ -11,7 +11,7 @@ function handleQueryClick() {
 }
 
 function handleLogoutClick(){
-     const url = "http:\\localhost:8000/Servidor/logout.php";
+     const url = "http://localhost:8000/Servidor/logout.php";
      performRequest(url,updateUnloggedUser);
 }
 
