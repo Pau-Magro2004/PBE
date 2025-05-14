@@ -40,9 +40,9 @@ class queryManager {
         $this->num_constraints = count($total_constraints);                      //Guardem el número de constraints
         foreach($total_constraints as $constraint){
            $exploded_query = explode("=",$constraint); //Ejemplo date[gte] , now
-           $exploded_data_operand = explode("%7B",$exploded_query[0]);    //date ,gte]
+           $exploded_data_operand = explode("%5B",$exploded_query[0]);    //date ,gte]
 
-           $this->operandos[] = $this->convertOperator(rtrim($exploded_data_operand[1],"%7D"));     //Obtenim l'operand 
+           $this->operandos[] = $this->convertOperator(rtrim($exploded_data_operand[1],"%5D"));     //Obtenim l'operand 
            $this->params[] = $exploded_data_operand[0];                                    //Obtenim el paràmetre (date,hour...)
            $this->valores[] = $this->modifyValue($exploded_data_operand[0],$exploded_query[1]);            //Passem per paràmetre el paràmetre y el valor (el que ve despres del =) que es troba a $exploded_query[0]           
        }
