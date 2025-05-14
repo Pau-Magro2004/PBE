@@ -150,7 +150,7 @@ class queryManager {
         if($value === 'now'){    //Si el parámetro es now, seguro que el valor estará relacionado con alguna medida de tiempo
             switch($param){
                 case 'date': return date('Y-m-d');
-                case 'hour':  return date('H');
+                case 'hour':  return date('H:i');
                 case 'day': return date('N');
                 case 'month': return date('m');
                 case 'year': return date('Y');
