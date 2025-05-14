@@ -32,7 +32,7 @@ function updateLoggedUser(response){
 }
 function updateSentQuery(response){
    if(response.status === 'expired'){
-     updateUnloggedUser(response)  //Si nos llega ese status, querrá decir que se ha cumplido el tiempo de inactividad
+     updateUnloggedUser(response);  //Si nos llega ese status, querrá decir que se ha cumplido el tiempo de inactividad
      return;
    }
    if (response.status === 'valid_query'){
