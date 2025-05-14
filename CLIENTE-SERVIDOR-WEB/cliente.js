@@ -61,7 +61,7 @@ function updateSentQuery(response){
      container.appendChild(table)  //Finalmente, añadimos la tabla en el contenedor
    }  
    else{
-     const error_query = getElementById('query-message');
+     const error_query = document.getElementById('query-message');
      error_query.textContent = 'Query invalida';
      error_query.classList.remove('hidden');   
      error_query.classList.add('error');      
