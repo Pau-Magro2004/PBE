@@ -43,7 +43,7 @@ function updateSentQuery(response){
         const column_name = document.createElement('th');
         column_name.textContent = key; //Ponemos que en la celda tenga el nombre de la columa
         headerRow.appendChild(column_name); //Introducimos la celda th en la etiqueta tr
-     }
+     });
      thead.appendChild(headerRow); //Añadimos la fila de los nombres de las columnas en el thead
      table.appendChild(thead);     //Añadimos ahora el encabezado de la tabla en la etiqueta de table
 
