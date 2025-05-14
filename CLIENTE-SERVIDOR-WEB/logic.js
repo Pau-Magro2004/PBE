@@ -38,7 +38,7 @@ function buildLoginUrl({ username, pass }) {
 }
 
 function buildQueryUrl(query) {
-  const base = 'http://localhost:8000/Servidor/querys.php/${query}?';
+  const base = `http://localhost:8000/Servidor/querys.php/${query}?`;
   let constraints;
   switch (query) {
     case "marks": constraints = ""; break;
