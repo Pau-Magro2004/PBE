@@ -93,7 +93,7 @@ document
   .getElementById('query-button')
   .addEventListener('click',handleQueryClick);
 document
-  .getElementsById('logout-button')
+  .getElementById('logout-button')
   .addEventListener('click',handleLogoutClick);
 
 
