@@ -41,7 +41,7 @@ function updateSentQuery(response){
      const excluded_keys = ['id','uid','day_int'];
      Object.keys(data[0]).forEach(key => {               //Object.keys() te devuelve un array con todas las claves (nombres de las columnas). Luego con el .forEach recorremos todas las keys y las introducimos en las etiquetas th las cuales luego se introducen en la etiqueta tr
         if(excluded_keys.includes(key)){
-             return
+             return;
         }
         const column_name = document.createElement('th');
         column_name.textContent = key; //Ponemos que en la celda tenga el nombre de la columa
