@@ -81,6 +81,10 @@ function updateSentQuery(response){
 function updateUnloggedUser(response){
      const container = document.getElementById('query-results');   
      container.innerHTML = ''; //Esborrem la taula anterior
+     ['user-id', 'user-pass','user-query'].forEach(id => {
+          document.getElementById(id).value = "";  //Borramos el contenido que pusimos en los formularios
+     });
+     document.getElementById('query-message').classList.add('hidden'); //Escondemos el mensaje de query errónea en caso de que estuviera
      document.getElementById('login-section').classList.remove('hidden'); //Mostramos de nuevo la pagina de log in
      document.getElementById('query-section').classList.add('hidden'); //Escondemos la pagina de querys
      console.log(response);
