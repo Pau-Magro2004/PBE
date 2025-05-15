@@ -15,14 +15,16 @@ function handleLogoutClick(){
      performRequest(url,updateUnloggedUser);
 }
 
-function updateLoggedUser(response){       
+function updateLoggedUser(response){
+     const error_login = document.getElementById('login-message');
      if (response.status === 'id_not_matched'){ //Si no coincide con nada en la base de datos
-        const error_login = document.getElementById('login-message');
+        
         error_login.textContent = 'Usuario o contraseña incorrectos';
         error_login.classList.remove('hidden');   
         error_login.classList.add('error'); //Para el css            
      }
      else{ //'id_matched'
+        error_login.classList.add('hidden'); //Para el css
         document.getElementById('login-section').classList.add('hidden');                //Escondemos la página de log in
         const query_page = document.getElementById('query-section');                     //Obtenemos una referencia a la pagina de querys
         query_page.classList.remove('hidden');                                           //Hacemos visible la página de querys
