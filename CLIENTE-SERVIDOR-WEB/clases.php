@@ -20,7 +20,7 @@ class queryManager {
         $this->status = "valid_query";
         $this->connexion = $conn;
         $this->uri = $uri;
-        $this->id = $id
+        $this->id = $id;
         
         
         $this->operandos = [];
