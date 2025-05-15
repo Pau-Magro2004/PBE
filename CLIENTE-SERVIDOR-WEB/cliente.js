@@ -17,7 +17,7 @@ function handleLogoutClick(){
 
 function updateLoggedUser(response){       
      if (response.status === 'id_not_matched'){ //Si no coincide con nada en la base de datos
-        const error_login = document.getElementById('login-message')
+        const error_login = document.getElementById('login-message');
         error_login.textContent = 'Usuario o contraseña incorrectos';
         error_login.classList.remove('hidden');   
         error_login.classList.add('error'); //Para el css            
