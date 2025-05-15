@@ -27,7 +27,7 @@ function updateLoggedUser(response){
         const query_page = document.getElementById('query-section');                     //Obtenemos una referencia a la pagina de querys
         query_page.classList.remove('hidden');                                           //Hacemos visible la página de querys
         const label = document.getElementById('welcome-label');
-        label.textContent= `Welcome ${response.data.name}`!;                              //Ponemos el texto en el label del HTML  
+        label.textContent= `Welcome ${response.data.name}!`;                              //Ponemos el texto en el label del HTML  
      }
 }
 function updateSentQuery(response){
