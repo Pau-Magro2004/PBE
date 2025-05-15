@@ -35,6 +35,8 @@ function updateSentQuery(response){
      updateUnloggedUser(response);  //Si nos llega ese status, querrá decir que se ha cumplido el tiempo de inactividad
      return;
    }
+   const error_query = document.getElementById('query-message');
+   error_query.classList.add('hidden');
    if (response.status === 'valid_query'){
      const data = response.data;
      
@@ -76,7 +78,6 @@ function updateSentQuery(response){
      container.appendChild(table)  //Finalmente, añadimos la tabla en el contenedor
    }  
    else{
-     const error_query = document.getElementById('query-message');
      error_query.textContent = 'Query invalida';
      error_query.classList.remove('hidden');   
      error_query.classList.add('error');      
