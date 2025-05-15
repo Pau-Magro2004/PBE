@@ -38,11 +38,12 @@ function updateSentQuery(response){
      return;
    }
    const error_query = document.getElementById('query-message');
+   const container = document.getElementById('query-results');   //Contenedor donde irá la tabla
    error_query.classList.add('hidden');
    if (response.status === 'valid_query'){
      const data = response.data;
      
-     const container = document.getElementById('query-results');   //Contenedor donde irá la tabla
+     
      container.innerHTML = ''; //Esto borrara la tabla anterior
      
      const table = document.createElement('table');                //Añadimos aquí una tabla
@@ -80,6 +81,7 @@ function updateSentQuery(response){
      container.appendChild(table)  //Finalmente, añadimos la tabla en el contenedor
    }  
    else{
+     container.innerHTML = ''; //Esto borrara la tabla anterior
      error_query.textContent = 'Query invalida';
      error_query.classList.remove('hidden');   
      error_query.classList.add('error');      
