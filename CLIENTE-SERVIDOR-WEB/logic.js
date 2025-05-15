@@ -31,9 +31,9 @@ class ServerCommunication {
    }
 }
 
-function buildLoginUrl({ username, pass }) {
+function buildLoginUrl({ id, pass }) {
   const base   = 'http://localhost:8000/Servidor/login.php/students?';
-  const params = `username=${encodeURIComponent(username)}&pass=${encodeURIComponent(pass)}`;
+  const params = `username=${encodeURIComponent(id)}&pass=${encodeURIComponent(pass)}`;
   return base + params;
 }
 
