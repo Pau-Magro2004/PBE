@@ -173,7 +173,7 @@ class queryManager {
     }
 
 }
-
+//CLASE LOGIN PARA EL CLIENTE WEB
 class LogIn {
     public $connexion;
     public $id;
@@ -184,11 +184,14 @@ class LogIn {
         $this->connexion = $conn;
         $this->password = $password;
         $this->username = $username;
+        
     }
     
     public function getUsername() {
         
         $query = "SELECT name,uid FROM students WHERE password = '{$this->password}' AND username = '{$this->username}'";
+        
+        
         $result = $this->connexion->query($query);
         
         if ($result->num_rows == 1) {
@@ -206,7 +209,41 @@ class LogIn {
             ];                                
         }
         header('Content-Type: application/json; charset=utf-8');
-        return $response;
+        return json_encode($response);
+    }
+}
+
+//CLASE LOGIN PARA EL CLIENTE RPi
+class LogIn {
+    public $connexion;
+    public $id;
+    
+    public function __construct($conn,$id) {
+        $this->connexion = $conn;
+        $this->id = $id;
+    }
+    
+    public function getUsername() {
+        
+        $query = "SELECT name FROM students WHERE uid = '{$this->id}'";
+        $result = $this->connexion->query($query);
+        
+        if ($result->num_rows == 1) {
+            $user_name = $result->fetch_assoc();
+            $response = [
+                'status' => 'id_matched',
+                'data' => $user_name['name']
+            ];
+           
+        } else {
+            session_unset();
+            session_destroy();
+            $response = [
+                'status' => 'id_not_matched'
+            ];                                
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        return json_encode($response);
     }
 }
 
