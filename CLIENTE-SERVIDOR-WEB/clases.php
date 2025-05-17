@@ -73,7 +73,7 @@ class queryManager {
            		    	WHEN ((day_int - {$val[0]} + 5)%5) = 0 
            		    		AND hour {$op[1]} CAST('{$val[1]}' AS TIME)
            		    	THEN 5 
-           		    	ELSE ((day_int - 1 + 5)%5)
+           		    	ELSE ((day_int - {$val[0]} + 5)%5)
            		    END, 
            		    hour ";
         }
