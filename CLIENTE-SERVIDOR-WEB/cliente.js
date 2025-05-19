@@ -15,21 +15,19 @@ function handleLogoutClick(){
      performRequest(url,updateUnloggedUser);
 }
 
-function updateLoggedUser(response){
-     const error_login = document.getElementById('login-message');
+function updateLoggedUser(response){       
      if (response.status === 'id_not_matched'){ //Si no coincide con nada en la base de datos
-        
+        const error_login = document.getElementById('login-message')
         error_login.textContent = 'Usuario o contraseña incorrectos';
         error_login.classList.remove('hidden');   
         error_login.classList.add('error'); //Para el css            
      }
      else{ //'id_matched'
-        error_login.classList.add('hidden'); //Para el css
         document.getElementById('login-section').classList.add('hidden');                //Escondemos la página de log in
         const query_page = document.getElementById('query-section');                     //Obtenemos una referencia a la pagina de querys
         query_page.classList.remove('hidden');                                           //Hacemos visible la página de querys
         const label = document.getElementById('welcome-label');
-        label.textContent= `Welcome ${response.data.name}!`;                              //Ponemos el texto en el label del HTML  
+        label.textContent= `Welcome ${response.data.name}`;                              //Ponemos el texto en el label del HTML  
      }
 }
 function updateSentQuery(response){
@@ -37,14 +35,13 @@ function updateSentQuery(response){
      updateUnloggedUser(response);  //Si nos llega ese status, querrá decir que se ha cumplido el tiempo de inactividad
      return;
    }
-   const error_query = document.getElementById('query-message');
-   const container = document.getElementById('query-results');   //Contenedor donde irá la tabla
-   error_query.classList.add('hidden');
    if (response.status === 'valid_query'){
      const data = response.data;
-     
+
      const error_query = document.getElementById('query-message');
      error_query.classList.add('hidden');
+
+     const container = document.getElementById('query-results');   //Contenedor donde irá la tabla
      container.innerHTML = ''; //Esto borrara la tabla anterior
      
      const table = document.createElement('table');                //Añadimos aquí una tabla
@@ -82,7 +79,8 @@ function updateSentQuery(response){
      container.appendChild(table)  //Finalmente, añadimos la tabla en el contenedor
    }  
    else{
-     container.innerHTML = ''; //Esto borrara la tabla anterior
+     console.log(response.status); 
+     const error_query = document.getElementById('query-message');
      error_query.textContent = 'Query invalida';
      error_query.classList.remove('hidden');   
      error_query.classList.add('error');      
@@ -95,6 +93,7 @@ function updateUnloggedUser(response){
           document.getElementById(id).value = "";  //Borramos el contenido que pusimos en los formularios
      });
      document.getElementById('query-message').classList.add('hidden'); //Escondemos el mensaje de query errónea en caso de que estuviera
+     document.body.classList.add("query-background"); //cambio fondo
      document.getElementById('login-section').classList.remove('hidden'); //Mostramos de nuevo la pagina de log in
      document.getElementById('query-section').classList.add('hidden'); //Escondemos la pagina de querys
      console.log(response);
@@ -109,13 +108,3 @@ document
 document
   .getElementById('logout-button')
   .addEventListener('click',handleLogoutClick);
-
-
-  
-
-
-  
-
-
-
-
