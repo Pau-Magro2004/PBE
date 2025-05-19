@@ -43,7 +43,8 @@ function updateSentQuery(response){
    if (response.status === 'valid_query'){
      const data = response.data;
      
-     
+     const error_query = document.getElementById('query-message');
+     error_query.classList.add('hidden');
      container.innerHTML = ''; //Esto borrara la tabla anterior
      
      const table = document.createElement('table');                //Añadimos aquí una tabla
